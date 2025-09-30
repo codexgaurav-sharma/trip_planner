@@ -1,0 +1,5 @@
+llm:
+  openai:
+    provider: "openai"
+    model_nmae: "o4-mini"
+    
