@@ -5,10 +5,10 @@ import sys
 
 
 
-BASE_URL = "http://127.0.0.1:8000"
+BASE_URL = "http://localhost:8000"
 
 st.set_page_config(
-    page_title="🌎 Trip planner Agentic Application",
+    page_title="Trip planner Agentic Application",
     page_icon="🌎",
     layout="centered",
     initial_sidebar_state="expanded"
