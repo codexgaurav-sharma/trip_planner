@@ -3,6 +3,7 @@ from typing import Literal, Optional, Any
 import os
 from dotenv import load_dotenv
 from langchain_openai import ChatOpenAI
+from langchain_groq import ChatGroq
 from utils.config_loader import load_config
 
 
@@ -41,5 +42,11 @@ class ModelLoader(BaseModel):
             openrouter_url = os.getenv("OPENROUTER_BASE_URL")
             model_name = self.config["llm"]["openai"]["model_nmae"]
             llm = ChatOpenAI(model_name = model_name, api_key=openai_api_key, base_url=openrouter_url)
+        elif self.model_provider == "groq":
+            print("Loading LLM from Groq..............")
+            groq_api_key = os.getenv("GROQ_API_KEY")
+            model_name = self.config["llm"]["groq"]["model_name"]
+            llm=ChatGroq(model=model_name, api_key=groq_api_key)  
+            
 
         return llm
