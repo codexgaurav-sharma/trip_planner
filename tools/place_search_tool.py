@@ -4,13 +4,16 @@ from typing import List
 from langchain.tools import tool
 from dotenv import load_dotenv
 
-load_dotenv()
 
 class PlaceSearchTool:
     def __init__(self):
+        load_dotenv()
         self.tavily_search = TavilyPlaceSearchTool()
         self.place_search_tool_list = self._setup_tools()
-        
+            
+    def __iter__(self):
+        return iter(self.place_search_tool_list)    
+    
     def _setup_tools(self) -> List:
         """Setup all tools for the place search tool"""
         
@@ -21,9 +24,9 @@ class PlaceSearchTool:
                 attraction_result = self.tavily_search.search_place_attraction(place)
                 if attraction_result:
                     return f"Following are the attractions of {place} as suggested by Tavily: {attraction_result}"
-                
+                return f"No attractions found for {place}"
             except Exception as e:
-                return f"Cann't find the details due to this error:- {e}"
+                return f"Can't find the details due to this error: {e}"
             
             
         @tool
@@ -33,8 +36,9 @@ class PlaceSearchTool:
                 restaurant_result = self.tavily_search.search_place_restaurant(place)
                 if restaurant_result:
                     return f"Following are the restaurants of {place} as suggested by Tavily: {restaurant_result}"
+                return f"No restaurants found for {place}"
             except Exception as e:
-                return f"Cann't find the details due to this error:- {e}"
+                return f"Can't find the details due to this error: {e}"
             
         @tool
         def search_activities(place: str) -> str:
@@ -43,8 +47,9 @@ class PlaceSearchTool:
                 activity_result = self.tavily_search.search_place_activity(place)
                 if activity_result:
                     return f"Following are the activities of {place} as suggested by Tavily: {activity_result}"
+                return f"No activities found for {place}"
             except Exception as e:
-                return f"Cann't find the details due to this error:- {e}"
+                return f"Can't find the details due to this error: {e}"
             
         @tool
         def search_transportation(place: str) -> str:
@@ -53,8 +58,9 @@ class PlaceSearchTool:
                 transport_result = self.tavily_search.search_place_transportation(place)
                 if transport_result:
                     return f"Following are the transportation options of {place} as suggested by Tavily: {transport_result}"
+                return f"No transportation information found for {place}"
             except Exception as e:
-                return f"Cann't find the details due to this error:- {e}"   
+                return f"Can't find the details due to this error: {e}"   
             
         
         return [search_attractions, search_restaurants, search_activities, search_transportation]

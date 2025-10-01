@@ -5,13 +5,16 @@ from typing import List
 from langchain.tools import tool
 
 
-load_dotenv()
 
 class CurrencyConverterTool:
     def __init__(self):
+        load_dotenv()
         self.api_key = os.environ.get("EXCHANGE_RATE_API_KEY")
         self.currency_service = CurrencyConvertor(self.api_key)
         self.currency_converter_tool_list = self._setup_tools()
+    
+    def __iter__(self):
+        return iter(self.currency_converter_tool_list)
     
     def _setup_tools(self) -> List:
             """Setup all tools for the currency converter tool"""

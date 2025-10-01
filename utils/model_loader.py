@@ -7,12 +7,12 @@ from langchain_groq import ChatGroq
 from utils.config_loader import load_config
 
 
-load_dotenv()
 
 
 
 class ConfigLoader:
     def __init__(self):
+        load_dotenv()
         print(f"Loading config....")
         self.config = load_config()  
         
@@ -40,13 +40,17 @@ class ModelLoader(BaseModel):
             print("Loading LLM from OpenAI.........")
             openai_api_key = os.getenv("OPENAI_API_KEY")
             openrouter_url = os.getenv("OPENROUTER_BASE_URL")
-            model_name = self.config["llm"]["openai"]["model_nmae"]
+            model_name = self.config["llm"]["openai"]["model_name"]
             llm = ChatOpenAI(model_name = model_name, api_key=openai_api_key, base_url=openrouter_url)
         elif self.model_provider == "groq":
+            if ChatGroq is None:
+                raise ImportError("langchain_groq is not installed. Install it with: pip install langchain-groq")
             print("Loading LLM from Groq..............")
             groq_api_key = os.getenv("GROQ_API_KEY")
             model_name = self.config["llm"]["groq"]["model_name"]
-            llm=ChatGroq(model=model_name, api_key=groq_api_key)  
+            llm = ChatGroq(model=model_name, api_key=groq_api_key)
+        else:
+            raise ValueError(f"Unsupported model provider: {self.model_provider}")  
             
 
         return llm

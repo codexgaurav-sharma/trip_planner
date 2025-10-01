@@ -5,7 +5,7 @@ class TavilyPlaceSearchTool:
     def __init__(self):
         pass
     
-    def tavily_search_attractions(self, place: str) -> dict:
+    def search_place_attraction(self, place: str) -> dict:
         """
         Searches for attractions in the specified place using TavilySearch.
         """
@@ -18,7 +18,7 @@ class TavilyPlaceSearchTool:
             return result["answer"]
         return result
     
-    def tavily_search_restaurants(self, place: str) -> dict:
+    def search_place_restaurant(self, place: str) -> dict:
         """
         Searches for available restaurants in the specified place using TavilySearch.
         """
@@ -32,7 +32,7 @@ class TavilyPlaceSearchTool:
         return result
     
     
-    def tavily_search_activity(self, place: str) -> dict:
+    def search_place_activity(self, place: str) -> dict:
         """
         Searches for popular activities in the specified place using TavilySearch.
         """
@@ -45,7 +45,7 @@ class TavilyPlaceSearchTool:
             return result["answer"]
         return result
     
-    def tavily_search_activity(self, place: str) -> dict:
+    def search_place_transportation(self, place: str) -> dict:
         """
         Searches for available modes of transportation in the specified place using TavilySearch.
         """

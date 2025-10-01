@@ -17,10 +17,10 @@ class GraphBuilder():
         self.weather_tool = WeatherInfoTool()
         self.place_search_tools = PlaceSearchTool()
         self.calculator_tools = CalculatorTool()
-        self.curreny_converter_tool = CurrencyConverterTool()
+        self.currency_converter_tool = CurrencyConverterTool()
         
         self.tools.extend([*self.weather_tool, *self.place_search_tools,
-                          *self.calculator_tools, *self.curreny_converter_tool])
+                          *self.calculator_tools, *self.currency_converter_tool])
         
         self.llm_with_tools = self.llm.bind_tools(tools=self.tools)
         self.graph = None
@@ -31,7 +31,7 @@ class GraphBuilder():
         user_question = state["messages"]
         input_question = [self.system_prompt] + user_question
         response = self.llm_with_tools.invoke(input_question)
-        return {"message": [response]}
+        return {"messages": [response]}
     
     def build_graph(self):
         graph_builder = StateGraph(MessagesState)
