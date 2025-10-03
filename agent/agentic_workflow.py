@@ -1,5 +1,5 @@
 from utils.model_loader import ModelLoader
-from propmt_library.prompt import SYSTEM_PROMPT
+from propmt_library.prompt import SYSTEM_PROMPT, NEW_SYSTEM_PROMPT
 from langgraph.graph import StateGraph, MessagesState, START, END
 from langgraph.prebuilt import ToolNode, tools_condition
 from tools.weather_search_tool import WeatherInfoTool
@@ -24,7 +24,7 @@ class GraphBuilder():
         
         self.llm_with_tools = self.llm.bind_tools(tools=self.tools)
         self.graph = None
-        self.system_prompt = SYSTEM_PROMPT
+        self.system_prompt = NEW_SYSTEM_PROMPT
     
     def agent_function(self, state: MessagesState):
         """Main agent Function"""
